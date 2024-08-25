@@ -5,7 +5,7 @@ class CreateUserFirebase {
   final _auth = FirebaseAuth.instance;
   final _store = FirebaseFirestore.instance;
 
-  Future<void> createUserWithEmailAndPassword({
+  Future<String?> createUserWithEmailAndPassword({
     required String emailAddress,
     required String password,
     required String login,
@@ -17,23 +17,25 @@ class CreateUserFirebase {
         password: password
       );
 
-      _store.collection('users').doc(userCredential.user?.uid).set({
+      await _store.collection('users').doc(userCredential.user?.uid).set({
         'Login': login,
         'Password': password,
         'EmailAddress': emailAddress,
         'Name': name
       });
 
-      print('Пользователь успешно сохранен');
-      
+      return null;
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('Слабый пароль');
+        return 'weak-password';
       } else if (e.code == 'email-already-in-use') {
-        print('Данный адрес электронной почты уже занят');
+        return 'email-already-in-use';
+      } else {
+        return 'Error: ${e.message}';
       }
     } catch (e) {
-      print('У нас ошибка: $e');
+      return 'Error: $e';
     }
   }
 }

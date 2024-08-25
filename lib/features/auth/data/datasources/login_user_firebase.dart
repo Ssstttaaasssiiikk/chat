@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginUserFirebase {
   final _auth = FirebaseAuth.instance;
   final _store = FirebaseFirestore.instance;
+  final _storage = const FlutterSecureStorage();
 
   Future<void> loginUserWithEmailAndPassword({
     required String emailAddress,
@@ -15,7 +17,11 @@ class LoginUserFirebase {
         password: password
       );
       User? user = userCredential.user;
+      
+
       if (user != null) {
+        String? token = userCredential.user!.refreshToken;
+        _storage.write(key: 'token', value: token);
         DocumentSnapshot userDoc = await _store.collection('users').doc(user.uid).get();
         String name = userDoc['Name'];
         String login = userDoc['Login'];

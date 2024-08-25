@@ -14,8 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future loginWithEmailAndPassword() async {
     if (emailAddress.text.isEmpty || password.text.isEmpty) return;
     emit(LoadingLoginState());
-    var response = LoginUserFirebase().loginUserWithEmailAndPassword(
+    LoginUserFirebase().loginUserWithEmailAndPassword(
         emailAddress: emailAddress.text, password: password.text);
-    print(response);
   }
 }

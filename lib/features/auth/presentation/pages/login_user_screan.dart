@@ -1,7 +1,6 @@
 import 'package:chat/core/customs/input.dart';
 import 'package:chat/core/routes/routes_name.dart';
 import 'package:chat/features/auth/data/datasources/login_user_firebase.dart';
-import 'package:chat/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 
 class LoginUserScrean extends StatelessWidget {
