@@ -1,6 +1,6 @@
 import 'package:chat/core/firebase/firebase_options.dart';
-import 'package:chat/features/auth/presentation/pages/create_user_screan.dart';
-import 'package:chat/features/auth/presentation/pages/login_user_screan.dart';
+import 'package:chat/core/routes/routes_name.dart';
+import 'package:chat/core/routes/routes_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginUserScrean(),
+      locale: const Locale('ru', 'RU'),
+      debugShowCheckedModeBanner: false,
+      initialRoute: Routes.login,
+      routes: RoutesPage.routes,
     );
   }
 }
