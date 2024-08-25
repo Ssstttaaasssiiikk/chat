@@ -7,7 +7,7 @@ class Input extends StatelessWidget {
   final Function(String)? onChanged;
 
   const Input({
-    super.key, 
+    super.key,
     required this.labelText,
     required this.hintText,
     required this.controller,
