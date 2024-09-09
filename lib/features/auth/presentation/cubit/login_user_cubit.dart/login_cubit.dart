@@ -1,4 +1,3 @@
-// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:chat/features/auth/data/datasources/login_user_firebase.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,19 @@ class LoginCubit extends Cubit<LoginState> {
   final emailAddress = TextEditingController();
   final password = TextEditingController();
 
-  Future loginWithEmailAndPassword() async {
+  Future<void> loginWithEmailAndPassword() async {
     if (emailAddress.text.isEmpty || password.text.isEmpty) return;
     emit(LoadingLoginState());
-    LoginUserFirebase().loginUserWithEmailAndPassword(
-        emailAddress: emailAddress.text, password: password.text);
+
+    try {
+      await LoginUserFirebase().loginUserWithEmailAndPassword(
+        emailAddress: emailAddress.text,
+        password: password.text,
+      );
+
+      emit(LoginSuccessState());
+    } catch (e) {
+      emit(LoginErrorState(e.toString()));
+    }
   }
 }

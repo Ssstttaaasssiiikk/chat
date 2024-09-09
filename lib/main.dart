@@ -38,7 +38,7 @@ class App extends StatelessWidget {
         ],
         locale: const Locale('ru', 'RU'),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.login,
+        initialRoute: Routes.splashScreen,
         routes: RoutesPage.routes,
       ),
     );
